@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-consistent re-audit of the p–11B SASR — Oleg Agamalov</title>
+<meta name="description" content="A five-closure audit of the stochastic-adaptive spheromak reactor concept for aneutronic p-11B fusion: corrected operating point, feasible region, and a nine-surface network drive.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23faf8f5'/><circle cx='16' cy='16' r='9' fill='none' stroke='%23271a00' stroke-width='2'/><ellipse cx='16' cy='16' rx='9' ry='3.5' fill='none' stroke='%230f3639' stroke-width='1.5'/></svg>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-consistent re-audit of the p-11B stochastic-adaptive spheromak reactor">
+<meta property="og:description" content="A five-closure audit: corrected operating point, feasible region, nine-surface network drive, and four falsifiable pillars.">
+<style>
+/* ============================================================
+   pplx-base.css — Perplexity "Computer" style, research-site build
+   Inline this whole file into a single <style> block in the page.
+   Values are canonical: do not retype hexes from memory.
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --color-aged-sepia: #271a00;      /* primary text, borders, icons */
+  --color-parchment: #faf8f5;       /* page canvas */
+  --color-fog: #d1cfc7;             /* dividers, button fills */
+  --color-absolute-black: #000000;  /* footer only */
+  --color-pure-white: #ffffff;      /* cards */
+  --color-moss-shadow: #7c7464;     /* secondary text */
+  --color-deep-forest: #23291b;     /* dark surfaces, nav on scroll */
+  --color-teal-accent: #0f3639;     /* the ONLY accent */
+  --color-ash-mist: #e5e5e3;        /* text on dark surfaces ONLY */
+  --color-slate-edge: #121516;      /* headline text, button borders */
+
+  /* Type families — proprietary faces with their documented substitutes */
+  --font-sans: 'pplxSans', 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'pplxSerif', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'pplxSansMono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Spacing — 4px base */
+  --spacing-4: 4px;    --spacing-8: 8px;    --spacing-12: 12px;
+  --spacing-16: 16px;  --spacing-20: 20px;  --spacing-24: 24px;
+  --spacing-28: 28px;  --spacing-40: 40px;  --spacing-80: 80px;
+  --spacing-180: 180px;
+
+  /* Layout */
+  --section-gap: 28px;
+  --card-padding: 40px;
+  --element-gap: 8px;
+  --measure: 68ch;
+
+  /* Radius — 40px is reserved for nav pills and primary CTAs */
+  --radius-badges: 4px;
+  --radius-inputs: 4px;
+  --radius-cards: 12px;
+  --radius-pill: 40px;
+
+  /* Fluid display scale — the spec is desktop-only; these keep it
+     from breaking on a phone while preserving the size *contrast*. */
+  --text-hero: clamp(3rem, 11vw, 6rem);       /* 48 → 96px */
+  --text-display: clamp(2.5rem, 8vw, 4.5rem); /* 40 → 72px */
+  --text-heading: clamp(1.75rem, 4.5vw, 2rem);/* 28 → 32px */
+  --text-subhead: 1.5rem;                     /* 24px, serif floor */
+  --text-body-lg: 1rem;                       /* 16px */
+  --text-body: 0.9375rem;                     /* 15px */
+  --text-body-sm: 0.75rem;                    /* 12px */
+  --text-caption: 0.6875rem;                  /* 11px */
+}
+
+/* ---------- Reset & base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-parchment);
+  color: var(--color-aged-sepia);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.028em; /* signature tracking — sans only */
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+::selection { background: rgba(15, 54, 57, 0.15); }
+:focus-visible { outline: 2px solid var(--color-teal-accent); outline-offset: 3px; }
+
+/* ---------- Type roles ---------- */
+.hero-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-hero);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.028em;
+  margin: 0;
+}
+.display, .section-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: normal; /* serif and mono take NO negative tracking */
+  margin: 0;
+}
+.heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading);
+  font-weight: 300;
+  line-height: 1.15;
+  margin: 0;
+}
+.subhead {
+  font-family: var(--font-serif);
+  font-size: var(--text-subhead);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: normal;
+  color: var(--color-slate-edge);
+  margin: 0;
+}
+.lede { font-size: var(--text-body-lg); line-height: 1.5; color: var(--color-moss-shadow); max-width: var(--measure); }
+.muted { color: var(--color-moss-shadow); }
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--spacing-24); }
+.wrap-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 var(--spacing-24); }
+section { padding-block: clamp(56px, 9vw, 120px); }
+.stack > * + * { margin-top: var(--spacing-8); }
+.stack-lg > * + * { margin-top: var(--spacing-28); }
+.grid-3 { display: grid; gap: var(--spacing-24); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid-2 { display: grid; gap: var(--spacing-40); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+/* ---------- Botanical haze ----------
+   The brand's signature layer is blurred garden photography. With no
+   image assets available offline, this rebuilds the *effect* in CSS:
+   out-of-focus foliage masses in forest/moss/teal, white blooms as
+   light radials, everything blurred and vignetted into parchment.
+   Put .haze on a <section> or <header>; content stays sharp above it. */
+.haze { position: relative; isolation: isolate; overflow: hidden; background: var(--color-parchment); }
+.haze::before {
+  content: ""; position: absolute; inset: -12%;
+  background:
+    radial-gradient(38% 46% at 16% 20%, rgba(35, 41, 27, 0.62), transparent 70%),
+    radial-gradient(32% 40% at 82% 26%, rgba(15, 54, 57, 0.45), transparent 72%),
+    radial-gradient(46% 42% at 64% 84%, rgba(124, 116, 100, 0.52), transparent 70%),
+    radial-gradient(14% 16% at 30% 62%, rgba(255, 255, 255, 0.92), transparent 62%),
+    radial-gradient(10% 12% at 41% 71%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(12% 13% at 73% 55%, rgba(255, 255, 255, 0.78), transparent 60%),
+    linear-gradient(158deg, #eaece4 0%, #d9ddd1 42%, #ccd1c3 100%);
+  filter: blur(30px) saturate(0.92);
+  z-index: -2;
+}
+.haze::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, var(--color-parchment), rgba(250, 248, 245, 0) 200px),
+    linear-gradient(to top, var(--color-parchment), rgba(250, 248, 245, 0) 200px),
+    linear-gradient(to right, var(--color-parchment), rgba(250, 248, 245, 0) 160px),
+    linear-gradient(to left, var(--color-parchment), rgba(250, 248, 245, 0) 160px);
+  z-index: -1;
+}
+.haze-soft::before { filter: blur(40px) saturate(0.85); opacity: 0.55; }
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-16);
+  padding: var(--spacing-12) var(--spacing-24);
+  transition: background-color 240ms ease, color 240ms ease;
+}
+.nav.is-scrolled { background: var(--color-deep-forest); color: var(--color-parchment); }
+.nav.is-scrolled .nav-link:hover { background: rgba(250, 248, 245, 0.12); }
+.nav-brand { font-family: var(--font-mono); font-size: var(--text-body-sm); font-weight: 600; letter-spacing: normal; }
+.nav-links { display: flex; align-items: center; gap: var(--spacing-4); }
+.nav-link {
+  font-size: var(--text-body); font-weight: 400;
+  padding: var(--spacing-12) var(--spacing-20);
+  border-radius: var(--radius-pill);
+  transition: background-color 160ms ease;
+}
+.nav-link:hover, .nav-link[aria-current="page"] { background: rgba(15, 54, 57, 0.10); }
+
+/* ---------- Buttons ---------- */
+.btn-pill { /* primary CTA — one per section, at most */
+  display: inline-flex; align-items: center; gap: var(--spacing-8);
+  background: #d6d5d4; color: #171615;
+  border: 1px solid #171615; border-radius: var(--radius-pill);
+  padding: var(--spacing-12) var(--spacing-24);
+  font-size: var(--text-body); font-family: var(--font-sans);
+  cursor: pointer; transition: background-color 160ms ease;
+}
+.btn-pill:hover { background: var(--color-fog); }
+.btn-frost { /* secondary, sits over haze */
+  display: inline-flex; align-items: center; gap: var(--spacing-8);
+  background: rgba(255, 255, 255, 0.6); color: var(--color-aged-sepia);
+  border: 1px solid rgba(39, 26, 0, 0.14); border-radius: var(--radius-inputs);
+  padding: var(--spacing-8) var(--spacing-16);
+  font-size: var(--text-body); cursor: pointer;
+  backdrop-filter: blur(6px); transition: background-color 160ms ease;
+}
+.btn-frost:hover { background: rgba(255, 255, 255, 0.82); }
+
+/* ---------- Surfaces ---------- */
+.card { /* white bloom on parchment — depth by luminance, never shadow */
+  background: var(--color-pure-white);
+  border-radius: var(--radius-cards);
+  padding: var(--card-padding);
+}
+.card-quiet { background: transparent; border-radius: var(--radius-inputs); padding: var(--spacing-12); }
+.card-dark { background: var(--color-deep-forest); color: var(--color-parchment); border-radius: var(--radius-cards); padding: var(--card-padding); }
+.card-dark .muted { color: var(--color-ash-mist); }
+.rule { border: 0; border-top: 1px solid var(--color-fog); margin: var(--spacing-28) 0; }
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: var(--text-body-sm); font-weight: 500;
+  letter-spacing: normal; color: var(--color-aged-sepia);
+  border-radius: var(--radius-badges); padding: 2px 6px;
+  background: rgba(39, 26, 0, 0.06);
+}
+.badge-line { background: transparent; border: 1px solid rgba(39, 26, 0, 0.14); }
+
+/* ---------- Research patterns ---------- */
+.params { width: 100%; border-collapse: collapse; font-size: var(--text-body); }
+.params caption {
+  text-align: left; font-family: var(--font-mono); font-size: var(--text-caption);
+  letter-spacing: normal; color: var(--color-moss-shadow);
+  padding-bottom: var(--spacing-12); text-transform: uppercase;
+}
+.params th {
+  text-align: left; font-weight: 400; color: var(--color-moss-shadow);
+  font-size: var(--text-body-sm); padding: var(--spacing-8) var(--spacing-12) var(--spacing-8) 0;
+  border-bottom: 1px solid var(--color-fog);
+}
+.params td {
+  padding: var(--spacing-12) var(--spacing-12) var(--spacing-12) 0;
+  border-bottom: 1px solid rgba(209, 207, 199, 0.5);
+  vertical-align: baseline;
+}
+.params td.val { font-family: var(--font-mono); letter-spacing: normal; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.eqn { margin: var(--spacing-28) 0; display: flex; align-items: baseline; gap: var(--spacing-16); }
+.eqn-body { flex: 1; font-family: var(--font-serif); font-size: 1.25rem; letter-spacing: normal; }
+.eqn-num { font-family: var(--font-mono); font-size: var(--text-body-sm); color: var(--color-moss-shadow); letter-spacing: normal; }
+
+.figure { background: var(--color-pure-white); border-radius: var(--radius-cards); padding: var(--spacing-24); }
+.figure figcaption { margin-top: var(--spacing-16); font-size: var(--text-body-sm); line-height: 1.5; color: var(--color-moss-shadow); }
+.figure figcaption b { font-family: var(--font-mono); font-weight: 500; letter-spacing: normal; color: var(--color-aged-sepia); }
+
+.refs { list-style: none; margin: 0; padding: 0; }
+.refs li { padding: var(--spacing-16) 0; border-bottom: 1px solid rgba(209, 207, 199, 0.6); }
+.refs .ref-title { display: block; }
+.refs .ref-meta { display: block; margin-top: var(--spacing-4); font-size: var(--text-body-sm); color: var(--color-moss-shadow); }
+.doi { font-family: var(--font-mono); letter-spacing: normal; color: var(--color-teal-accent); border-bottom: 1px solid rgba(15, 54, 57, 0.3); }
+
+.footer { background: var(--color-absolute-black); color: var(--color-parchment); padding-block: var(--spacing-80); }
+.footer a { color: var(--color-ash-mist); }
+.footer a:hover { color: var(--color-pure-white); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* ============================================================
+   Layer 2 — components that every research page needed by hand.
+   ============================================================ */
+
+/* ---------- Eyebrow label ---------- */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: var(--color-moss-shadow);
+}
+.on-dark .label, .card-dark .label, .footer .label { color: var(--color-ash-mist); }
+
+/* ---------- Code / BibTeX blocks ---------- */
+.code {
+  background: var(--color-deep-forest);
+  color: var(--color-ash-mist);
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-24);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  letter-spacing: normal;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 0;
+}
+.code-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--spacing-16); margin-bottom: var(--spacing-12);
+}
+code:not(.code) {
+  font-family: var(--font-mono); font-size: 0.9em; letter-spacing: normal;
+  background: rgba(39, 26, 0, 0.06); border-radius: var(--radius-badges); padding: 1px 5px;
+}
+
+/* ---------- Form controls (4px radius, never pill) ---------- */
+.control { margin-bottom: var(--spacing-28); }
+.control-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--spacing-12); margin-bottom: var(--spacing-12);
+}
+.control-val {
+  font-family: var(--font-mono); font-size: var(--text-body-lg); font-weight: 500;
+  letter-spacing: normal; font-variant-numeric: tabular-nums;
+}
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 2px; background: var(--color-fog);
+  border-radius: var(--radius-badges); outline-offset: 6px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--color-teal-accent); border: 3px solid var(--color-pure-white); cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--color-teal-accent); border: 3px solid var(--color-pure-white); cursor: pointer;
+}
+input[type="text"], input[type="number"], input[type="email"], select, textarea {
+  font-family: var(--font-sans); font-size: var(--text-body); color: var(--color-aged-sepia);
+  background: var(--color-pure-white); border: 1px solid var(--color-fog);
+  border-radius: var(--radius-inputs); padding: var(--spacing-8) var(--spacing-12); width: 100%;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accent); }
+
+/* ---------- Charts — palette-constrained, no categorical hues ---------- */
+:root {
+  --series-1: var(--color-teal-accent);
+  --series-2: var(--color-moss-shadow);
+  --series-3: var(--color-deep-forest);
+  --series-4: rgba(39, 26, 0, 0.35);
+}
+.plot { width: 100%; height: auto; display: block; }
+.plot-grid line { stroke: var(--color-fog); stroke-width: 1; }
+.plot-axis { stroke: var(--color-aged-sepia); stroke-width: 1; }
+.plot-curve { fill: none; stroke: var(--series-1); stroke-width: 2; }
+.plot-curve-ref { fill: none; stroke: var(--series-2); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.plot-band { fill: rgba(124, 116, 100, 0.18); }
+.plot-marker { fill: var(--series-1); stroke: var(--color-pure-white); stroke-width: 3; }
+.plot-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: normal; fill: var(--color-moss-shadow);
+}
+
+/* ---------- Numeric readouts ---------- */
+.readout { display: grid; gap: var(--spacing-16); grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.readout-item { border-top: 1px solid var(--color-fog); padding-top: var(--spacing-12); }
+.readout-num {
+  display: block; font-family: var(--font-mono); font-size: 1.75rem; font-weight: 400;
+  letter-spacing: normal; line-height: 1.1; font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Placeholder marker — visible, never silent ---------- */
+.placeholder {
+  display: inline-block; font-family: var(--font-mono); font-size: var(--text-body-sm);
+  letter-spacing: normal; color: var(--color-teal-accent);
+  border: 1px dashed rgba(15, 54, 57, 0.45); border-radius: var(--radius-badges); padding: 2px 6px;
+}
+
+/* ---------- Tight viewports ---------- */
+@media (max-width: 600px) {
+  .card, .card-dark, .figure { padding: var(--spacing-24); }
+}
+
+/* page-local */
+.paper-head { padding-block: clamp(64px, 12vh, 140px) clamp(40px, 7vh, 72px); }
+.meta-row { display: flex; flex-wrap: wrap; gap: var(--spacing-8); margin-top: var(--spacing-28); }
+.abstract { font-size: var(--text-body-lg); line-height: 1.6; max-width: var(--measure); }
+.compare { width: 100%; border-collapse: collapse; font-size: var(--text-body); }
+.compare th { text-align: left; font-weight: 400; color: var(--color-moss-shadow); font-size: var(--text-body-sm); padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) 0; border-bottom: 1px solid var(--color-fog); }
+.compare td { padding: var(--spacing-12) var(--spacing-16) var(--spacing-12) 0; border-bottom: 1px solid rgba(209,207,199,0.5); vertical-align: baseline; }
+.compare td.val { font-family: var(--font-mono); letter-spacing: normal; font-variant-numeric: tabular-nums; }
+.compare td.was { color: var(--color-moss-shadow); }
+.closure { display: grid; grid-template-columns: 40px 1fr; gap: var(--spacing-16); padding: var(--spacing-16) 0; border-bottom: 1px solid rgba(209,207,199,0.6); }
+.closure-num { font-family: var(--font-mono); font-size: var(--text-body-sm); color: var(--color-teal-accent); letter-spacing: normal; padding-top: 3px; }
+.closure h3 { margin: 0 0 var(--spacing-4); font-family: var(--font-serif); font-size: var(--text-subhead); font-weight: 400; letter-spacing: normal; }
+.closure p { margin: 0; color: var(--color-moss-shadow); font-size: var(--text-body); }
+.pillar { padding: var(--spacing-20) 0; border-bottom: 1px solid rgba(209,207,199,0.6); }
+.pillar-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--spacing-12); }
+.pillar h3 { margin: 0; font-family: var(--font-serif); font-size: var(--text-subhead); font-weight: 400; letter-spacing: normal; }
+.pillar p { margin: var(--spacing-8) 0 0; color: var(--color-moss-shadow); max-width: var(--measure); }
+@media (max-width: 600px) { .card, .card-dark, .figure { padding: var(--spacing-24); } }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <span class="nav-brand">SASR / PAPERS</span>
+  <div class="nav-links">
+    <a class="nav-link" href="#abstract">Abstract</a>
+    <a class="nav-link" href="#closures">Closures</a>
+    <a class="nav-link" href="#corrected">Corrections</a>
+    <a class="nav-link" href="#pillars">Pillars</a>
+    <a class="nav-link" href="#code">Code</a>
+  </div>
+</nav>
+
+<header class="haze paper-head">
+  <div class="wrap-narrow">
+    <span class="label">Submitted &middot; 2026</span>
+    <h1 class="display" style="margin-top: var(--spacing-16)">Self-consistent re-audit of the p&ndash;<sup>11</sup>B stochastic-adaptive spheromak reactor</h1>
+    <p class="subhead" style="margin-top: var(--spacing-16); color: var(--color-moss-shadow)">Closure hierarchy, corrected operating point, and multi-surface network drive</p>
+    <p class="lede" style="margin-top: var(--spacing-24)">Oleg Agamalov &middot; Independent Researcher, Ukraine</p>
+    <div class="meta-row">
+      <span class="badge badge-line">Under review</span>
+      <span class="badge badge-line">ORCID 0000-0002-0330-8268</span>
+      <a class="badge" href="https://doi.org/10.5281/zenodo.21412076">Zenodo audit suite</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="abstract" style="padding-top: 0">
+  <div class="wrap-narrow">
+    <span class="label">Abstract</span>
+    <p class="abstract" style="margin-top: var(--spacing-16)">
+      A hierarchy of five closures is applied sequentially to the stochastic-adaptive spheromak
+      reactor concept for aneutronic p&ndash;<sup>11</sup>B fusion. The audit shows that the
+      operating point published earlier is over-pressured at &beta; = 2.8, and that the extreme
+      decoupling ratio &Theta; = T<sub>i</sub>/T<sub>e</sub> &asymp; 9 is not self-consistent:
+      because ion&ndash;electron equilibration power scales as
+      (T<sub>i</sub> &minus; T<sub>e</sub>)/T<sub>e</sub><sup>3/2</sup>, minimising
+      T<sub>e</sub> maximises the drain, and the electron ledger self-selects
+      &Theta; &asymp; 3. The corrected concept nevertheless retains a feasible region, and
+      ignites within flowing-lithium wall limits. The two-condition Alfv&eacute;nic targeting
+      scheme &mdash; which corrects an error in the resonance condition of earlier work &mdash;
+      generalises to a network of nine low-order rational surfaces driven by a frequency comb
+      with phase-interleaved firing order. Four sharply-posed claims define the remaining
+      research programme.
+    </p>
+  </div>
+</section>
+
+<section id="closures" class="haze haze-soft">
+  <div class="wrap-narrow">
+    <h2 class="section-title">Five closures</h2>
+    <p class="lede" style="margin-top: var(--spacing-24)">
+      An ordered sequence of physical constraints, each implemented as an executable audit. A
+      design that survives makes claims a referee can recompute; a design that fails identifies
+      precisely which physics must change.
+    </p>
+    <div style="margin-top: var(--spacing-40)">
+      <div class="closure"><span class="closure-num">I</span><div>
+        <h3>Beta, field, density</h3>
+        <p>Can the operating point be confined at all? Kinetic against magnetic pressure.</p>
+      </div></div>
+      <div class="closure"><span class="closure-num">II</span><div>
+        <h3>Transport and per-pass burn</h3>
+        <p>The equilibration drain measured against fusion income, and what one proton pass returns.</p>
+      </div></div>
+      <div class="closure"><span class="closure-num">III</span><div>
+        <h3>The electron ledger</h3>
+        <p>T<sub>e</sub> as an output of radiative equilibrium rather than a free parameter.</p>
+      </div></div>
+      <div class="closure"><span class="closure-num">IV</span><div>
+        <h3>Radiation accounting</h3>
+        <p>Radiated power is a loss unless something demonstrably pays to sustain it.</p>
+      </div></div>
+      <div class="closure"><span class="closure-num">V</span><div>
+        <h3>First-wall loading</h3>
+        <p>The constraint that removes the seductive high-power corner.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="corrected">
+  <div class="wrap-narrow">
+    <h2 class="section-title">What the audit changed</h2>
+    <p class="lede" style="margin-top: var(--spacing-24)">
+      Three published elements are corrected and three survive every closure &mdash; including,
+      remarkably, the magnet: the feasible region converges back to the 20-T-class HTS field of
+      the original design.
+    </p>
+
+    <table class="compare" style="margin-top: var(--spacing-40)">
+      <thead>
+        <tr><th>Parameter</th><th>Published</th><th>Corrected</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Magnetic field</td><td class="val was">20 T</td><td class="val">23 T</td></tr>
+        <tr><td>Ion density</td><td class="val was">4.0&times;10<sup>21</sup> m<sup>&minus;3</sup></td><td class="val">8.5&times;10<sup>20</sup> m<sup>&minus;3</sup></td></tr>
+        <tr><td>Plasma beta</td><td class="val was">2.77 &mdash; inconsistent</td><td class="val">0.57</td></tr>
+        <tr><td>Electron temperature</td><td class="val was">65&ndash;70 keV assumed</td><td class="val">202 keV solved</td></tr>
+        <tr><td>Decoupling ratio &Theta;</td><td class="val was">&asymp; 9</td><td class="val">3.0 self-selected</td></tr>
+        <tr><td>Equilibration time</td><td class="val was">10&ndash;15 ms</td><td class="val">&asymp; 1 s</td></tr>
+        <tr><td>Confinement time</td><td class="val was">0.15 s implied</td><td class="val">5 s required</td></tr>
+        <tr><td>Operation</td><td class="val was">driven, sub-ignited</td><td class="val">ignited, 2% trigger</td></tr>
+        <tr><td>Engineering gain</td><td class="val was">7.14</td><td class="val">4.9</td></tr>
+        <tr><td>Wall load</td><td class="val was">not evaluated</td><td class="val">38.8 of 40 MW m<sup>&minus;2</sup></td></tr>
+      </tbody>
+    </table>
+
+    <div class="card-dark" style="margin-top: var(--spacing-40)">
+      <h3 class="subhead" style="color: var(--color-parchment)">Three errors, stated plainly</h3>
+      <ul style="margin: var(--spacing-16) 0 0; padding-left: 1.2em; line-height: 1.7">
+        <li>The published operating point summed to a kinetic pressure 2.8&times; the magnetic
+            pressure. No configuration can hold that plasma, and the discrepancy propagated
+            silently through every downstream number.</li>
+        <li>The deposition condition was stated as <b>k&middot;B = 0</b>. That condition belongs
+            to the targeted tearing mode, not to the injected wave &mdash; which must retain
+            finite parallel wavenumber at the same surface, or there is no Alfv&eacute;n
+            resonance at all.</li>
+        <li>An early version of this audit credited recovered radiation to the output with no
+            input term resupplying the electrons, inflating the gain from 6.9 to 24. Recorded
+            here so others may avoid it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="drive" class="haze haze-soft">
+  <div class="wrap-narrow">
+    <h2 class="section-title">The nine-line drive</h2>
+    <p class="lede" style="margin-top: var(--spacing-24)">
+      A single surface is a one-cylinder engine. Interleaving the crash phases of nine surfaces
+      divides the per-crash energy, renders ion heating quasi-continuous, and holds the Chirikov
+      overlap below unity by schedule rather than by amplitude.
+    </p>
+
+    <figure class="figure" style="margin: var(--spacing-40) 0 0">
+      <svg class="plot" viewBox="0 0 640 260" role="img" aria-label="Nine drive comb lines between 0.44 and 1.04 megahertz, labelled by rational surface">
+        <g id="stems"></g>
+        <line class="plot-axis" x1="60" y1="210" x2="610" y2="210"/>
+        <text class="plot-label" x="60"  y="232">0.4</text>
+        <text class="plot-label" x="215" y="232">0.6</text>
+        <text class="plot-label" x="375" y="232">0.8</text>
+        <text class="plot-label" x="535" y="232">1.0</text>
+        <text class="plot-label" x="300" y="252">f [MHz]</text>
+      </svg>
+      <figcaption>
+        <b>Fig. 1</b> &mdash; The nine-surface drive comb at the corrected operating point
+        (23 T, (1,1) antenna). Minimum line spacing 38 kHz against deposition-layer bandwidths
+        of about 7 kHz; every line at least a factor 150 below the boron cyclotron ceiling.
+      </figcaption>
+    </figure>
+
+    <p class="muted" style="margin-top: var(--spacing-28); max-width: var(--measure)">
+      One honest limitation: the layer width grows toward the axis &mdash; 25 mm at q = 5/7
+      &mdash; because the gradient of the local resonance frequency flattens there. The innermost
+      surfaces are the least surgically addressable.
+    </p>
+  </div>
+</section>
+
+<section id="pillars">
+  <div class="wrap-narrow">
+    <h2 class="section-title">Four pillars</h2>
+    <p class="lede" style="margin-top: var(--spacing-24)">
+      Everything assumed rather than derived, with the route to establishing each. Deliberately,
+      all four are falsifiable.
+    </p>
+
+    <div style="margin-top: var(--spacing-40)">
+      <div class="pillar">
+        <div class="pillar-head">
+          <h3>Reactivity enhancement F</h3>
+          <span class="badge">3&ndash;5 required</span>
+        </div>
+        <p>Fold the reconnection outflow spectrum against the measured cross-section with a
+        bi-Maxwellian formalism. The 675 keV resonance is the physical basis.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-head">
+          <h3>Net synchrotron factor f<sub>sync</sub></h3>
+          <span class="badge">&le; 3&times;10<sup>&minus;3</sup></span>
+        </div>
+        <p>The single crudest input of the audit, with a cliff near 1.5&times;10<sup>&minus;2</sup>.
+        Needs a transparency calculation combined with measured liquid-lithium reflectivity at
+        millimetre wavelengths and 23 T.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-head">
+          <h3>Confinement time &tau;<sub>E</sub></h3>
+          <span class="badge">&ge; 5 s</span>
+        </div>
+        <p>The concept's central falsifiable claim. The &tau;<sub>E</sub> &prop; B&sup2; scaling
+        has never been verified against any plasma; it is testable at SSPX scale with the
+        0.54 MHz single-line scheme.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-head">
+          <h3>Beta stability</h3>
+          <span class="badge">0.5&ndash;0.6</span>
+        </div>
+        <p>Asserted from compact-toroid precedent rather than demonstrated for this
+        configuration. An oblate flux conserver plus the firing-order schedule is the proposed
+        stabilisation mechanism.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="code" style="padding-top: 0">
+  <div class="wrap-narrow">
+    <h2 class="heading">Code and data</h2>
+    <p class="lede" style="margin-top: var(--spacing-16)">
+      Every figure and every quoted number is a panel or a printout of an openly deposited
+      script. Base MATLAB, R2018b-compatible, no toolboxes.
+    </p>
+    <p style="margin-top: var(--spacing-24)">
+      <span class="badge">sasr_full_audit.m</span>
+      <span class="badge">sasr_master_audit.m</span>
+      <span class="badge">sasr_qeng_optimizer_v2.m</span>
+      <span class="badge">sasr_pb11_cooling_race.m</span>
+      <span class="badge">sasr_alfven_grounding_v2.m</span>
+      <span class="badge">sasr_alfven_freq_check.m</span>
+    </p>
+    <p style="margin-top: var(--spacing-24)">
+      Zenodo: <a class="doi" href="https://doi.org/10.5281/zenodo.21412076">10.5281/zenodo.21412076</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p><a href="./index.html">&larr; SASR project</a></p>
+    <hr class="rule" style="border-color: rgba(250,248,245,0.18)">
+    <p class="muted" style="font-size: var(--text-body-sm)">
+      Oleg Agamalov &middot; DSc &middot; olegagamalov@gmail.com &middot; Pivdennoukrainsk, Ukraine
+    </p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.querySelector('.nav');
+  addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 40), { passive: true });
+
+  // Drive comb, table 3 of the manuscript
+  const lines = [
+    ['5/7', 0.441], ['7/10', 0.479], ['2/3', 0.577], ['7/11', 0.680], ['5/8', 0.722],
+    ['3/5', 0.825], ['7/12', 0.900], ['4/7', 0.959], ['5/9', 1.043]
+  ];
+  const NS = 'http://www.w3.org/2000/svg';
+  const g = document.getElementById('stems');
+  const sx = f => 60 + (f - 0.40) / (1.10 - 0.40) * 550;
+  lines.forEach(([q, f]) => {
+    const x = sx(f);
+    const ln = document.createElementNS(NS, 'line');
+    ln.setAttribute('x1', x); ln.setAttribute('x2', x);
+    ln.setAttribute('y1', 210); ln.setAttribute('y2', 90);
+    ln.setAttribute('stroke', 'var(--series-1)'); ln.setAttribute('stroke-width', 2);
+    g.appendChild(ln);
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', x); dot.setAttribute('cy', 90); dot.setAttribute('r', 4);
+    dot.setAttribute('class', 'plot-marker');
+    g.appendChild(dot);
+    const tx = document.createElementNS(NS, 'text');
+    tx.setAttribute('class', 'plot-label');
+    tx.setAttribute('x', x); tx.setAttribute('y', 78);
+    tx.setAttribute('transform', `rotate(-90 ${x} 78)`);
+    tx.textContent = q;
+    g.appendChild(tx);
+  });
+</script>
+</body>
+</html>
