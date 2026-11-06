@@ -1,32 +1,16 @@
-# SASR — project site
+# SASR — Stochastic-Adaptive Synchronisation of Rational surfaces: project site (v2, 6 November 2026)
 
-Two self-contained HTML pages. No build step, no dependencies, no external requests.
-Each page carries its own CSS inline and renders correctly with the network off.
+One self-contained HTML page (index.html). No build step, no external requests.
+SASR was formerly the Stochastic-Adaptive Spheromak Reactor; the page keeps that evolution.
 
-    index.html           project site (concept, operating point, status, publications)
-    reaudit-paper.html   companion page for the closure-hierarchy re-audit manuscript
+## Publishing (GitHub Pages)
+1. Replace index.html in the repository root with this version and commit.
+2. Delete reaudit-paper.html from the repository (decision 6 Nov 2026).
+The site updates at https://olegagamalov-design.github.io/SASR/ within a minute or two.
 
-The two pages link to each other with relative paths, so keep them in the same folder.
-
-## Publishing to GitHub Pages
-
-1. Create a new public repository.
-2. Upload both `.html` files to the repository root.
-3. Settings → Pages → Source: "Deploy from a branch" → `main` / `root` → Save.
-4. The site appears at `https://<username>.github.io/<repo>/` within a minute or two.
-
-## Editing
-
-Open either file in a text editor. All styling lives in the single `<style>` block at
-the top; content is plain HTML below it. Search for a phrase to find where it lives.
-
-## Known open items
-
-- The re-audit manuscript is labelled "Under review". Add the journal name once confirmed
-  (search for `Under review` in both files).
-- The Zenodo entry lists 10.5281/zenodo.21437772 as current and 10.5281/zenodo.21412076
-  as the earlier version. The submitted manuscript cites the earlier DOI.
-- The stability section states beta = 0.57 against a Mercier limit of ~0.035. This is taken
-  from the re-audit manuscript's operating point.
+## Source of numbers
+Plant numbers: master parameter file v0.5 (3 Nov 2026, reference point S1).
+Controller numbers: AIA/D72 (Vivado 2018.2 sign-off, 6 Nov 2026).
+Publications: only published or accepted papers and public preprints.
 
 Oleg Agamalov · ORCID 0000-0002-0330-8268

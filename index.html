@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SASR — Stochastic-Adaptive Spheromak Reactor</title>
-<meta name="description" content="A compact fusion concept in which pulsed magnetic reconnection is treated as a driven, controllable heating mechanism, paired with aneutronic proton-boron-11 fuel and a liquid-lithium first wall.">
+<title>SASR — Stochastic-Adaptive Synchronisation of Rational surfaces</title>
+<meta name="description" content="SASR: real-time control and diagnosis of rational-surface dynamics with 3D-field coils, from a verified FPGA resonance tracker, benchmarked on a D-T spherical-tokamak reference point.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23faf8f5'/><circle cx='16' cy='16' r='9' fill='none' stroke='%23271a00' stroke-width='2'/><ellipse cx='16' cy='16' rx='9' ry='3.5' fill='none' stroke='%230f3639' stroke-width='1.5'/></svg>">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SASR - Stochastic-Adaptive Spheromak Reactor">
-<meta property="og:description" content="A compact fusion concept treating pulsed magnetic reconnection as a driven, controllable heating mechanism, with aneutronic p-11B fuel.">
+<meta property="og:title" content="SASR - Stochastic-Adaptive Synchronisation of Rational surfaces">
+<meta property="og:description" content="A verified FPGA resonance tracker for 3D-field coils, a lock-feasibility criterion, and an audited D-T spherical-tokamak reference point.">
 <style>
 /* ============================================================
    pplx-base.css — Perplexity "Computer" style, research-site build
@@ -386,6 +386,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
 .footer-grid { display: grid; gap: var(--spacing-40); grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
 .footer .badge { background: rgba(250,248,245,0.10); color: var(--color-parchment); }
 .verify { border-style: dashed; }
+@media (max-width: 600px) {
+  .nav { padding: var(--spacing-8) var(--spacing-12); }
+  .nav-links { flex-wrap: wrap; justify-content: flex-end; gap: 0; }
+  .nav-link { padding: var(--spacing-8) var(--spacing-8); font-size: var(--text-body-sm); }
+}
+@media (max-width: 420px) { .hero-title { font-size: 2.4rem; } }
+.note { font-size: var(--text-body-sm); color: var(--color-moss-shadow); margin-top: var(--spacing-4); display:block; }
 </style>
 </head>
 <body>
@@ -393,24 +400,26 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
 <nav class="nav" aria-label="Primary">
   <span class="nav-brand">SASR</span>
   <div class="nav-links">
-    <a class="nav-link" href="#concept">Concept</a>
-    <a class="nav-link" href="#physics">Physics</a>
-    <a class="nav-link" href="#status">Status</a>
+    <a class="nav-link" href="#concept">Programme</a>
+    <a class="nav-link" href="#physics">S1 point</a>
+    <a class="nav-link" href="#results">Results</a>
     <a class="nav-link" href="#papers">Papers</a>
   </div>
 </nav>
 
 <header class="haze hero">
   <div class="wrap" style="padding-block: var(--spacing-80)">
-    <span class="badge badge-line">/ compact aneutronic concept</span>
-    <h1 class="hero-title" style="margin-top: var(--spacing-24)">Stochastic-Adaptive<br>Spheromak Reactor</h1>
+    <span class="badge badge-line">/ SASR &middot; formerly the Stochastic-Adaptive Spheromak Reactor</span>
+    <h1 class="hero-title" style="margin-top: var(--spacing-24)">Stochastic-Adaptive<br>Synchronisation of Rational Surfaces</h1>
     <p class="lede" style="margin-top: var(--spacing-28)">
-      A compact fusion concept in which pulsed magnetic reconnection is treated as a driven,
-      controllable heating mechanism rather than a loss channel — paired with aneutronic
-      proton–boron-11 fuel and a liquid-lithium first wall.
+      Real-time phase locking of 3D-field drives to the natural frequencies of rational
+      surfaces, under the stochastic frequency noise of real plasmas: a verified FPGA controller, a quantified feasibility
+      criterion, and an audited D–T spherical-tokamak reference point. The programme began as
+      the Stochastic-Adaptive Spheromak Reactor; it kept the name SASR and the methods that
+      survived the 2026 audits.
     </p>
     <div class="cta-row">
-      <a class="btn-pill" href="#physics">Operating point</a>
+      <a class="btn-pill" href="#results">Results</a>
       <a class="btn-frost" href="#papers">Publications</a>
     </div>
   </div>
@@ -420,31 +429,32 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
 
 <section id="concept">
   <div class="wrap">
-    <h2 class="section-title">Three commitments</h2>
+    <h2 class="section-title">The programme now</h2>
     <p class="lede" style="margin-top: var(--spacing-24)">
-      Each buys something and costs something. The concept is defined by the trades, not by
-      any single component.
+      Three parts, each with its own evidence. None of them is a claim about plant power.
     </p>
     <div class="grid-3" style="margin-top: var(--spacing-40)">
       <article class="card">
-        <h3 class="subhead">Driven reconnection</h3>
-        <p>Reconnection events deposit energy preferentially into ions, following the Yamada
-        2:1 ion-to-electron partition. Treated as a Kramers escape problem, the event rate
-        becomes a control variable rather than an instability — at the cost of requiring an
-        active control loop whose statistics are so far validated only in simulation.</p>
+        <h3 class="subhead">Control layer</h3>
+        <p>A multi-harmonic resonance tracker for 3D-field coils. Each channel locks a drive
+        to the resonance of a rational surface by its response phase, and reads out the
+        natural frequency and damping rate in real time. The VHDL is bit-true to the MATLAB
+        model and closes timing on an industrial-class FPGA. A lock on a real plasma
+        needs an experimental partner.</p>
       </article>
       <article class="card">
-        <h3 class="subhead">Aneutronic p–<sup>11</sup>B</h3>
-        <p>No tritium breeding, no 14 MeV neutron wall load, no activation inventory. The
-        price is a reactivity peak near 600 keV and bremsstrahlung losses severe enough that
-        the electron temperature, not the ion temperature, becomes the governing design
-        constraint.</p>
+        <h3 class="subhead">Feasibility criterion</h3>
+        <p>Whether such a lock is possible is set by the noise of the surface's natural
+        frequency, and only in the band between the loop bandwidth and the linewidth. The
+        model gives a threshold: lock when the in-band jitter is below 0.39 of the damping
+        rate. It is a model result, not yet tested against plasma data.</p>
       </article>
       <article class="card">
-        <h3 class="subhead">Liquid-lithium wall</h3>
-        <p>A flowing first wall removes the erosion-lifetime question and provides a renewable
-        plasma-facing surface, at the cost of MHD pumping losses and an impurity budget that
-        must be held tight enough not to reopen the radiation problem above.</p>
+        <h3 class="subhead">Reference plant</h3>
+        <p>A STEP-class D–T spherical tokamak with gyrotron current drive (S1), held in one
+        master parameter file. It is the benchmark the control layer is measured against.
+        The SASR mechanisms that would have changed its power balance were tested and
+        closed.</p>
       </article>
     </div>
   </div>
@@ -454,45 +464,40 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
   <div class="wrap">
     <div class="two-col">
       <div>
-        <h2 class="section-title">The operating point</h2>
+        <h2 class="section-title">Reference point S1</h2>
         <p class="lede" style="margin-top: var(--spacing-24)">
-          Self-consistent rather than aspirational. The electron temperature is solved from
-          radiative equilibrium, which fixes the temperature ratio &Theta; and with it the
-          whole point — the cooling race between fusion heating and bremsstrahlung has a
-          window, and these numbers sit inside it. Move one and the others follow.
+          A 0D/1D point with a Grad–Shafranov/bootstrap equilibrium, sourced current-drive
+          efficiency and sourced wall limits. All values are model results. Q<sub>eng</sub>
+          is 3.05–4.42 over an ECCD efficiency ζ of 0.25–0.40; the table uses ζ = 0.30.
         </p>
-
         <div class="eqn">
-          <div class="eqn-body">&tau;<sub>E</sub> &prop; B&sup2; / (1 + R<sub>SR</sub>)</div>
+          <div class="eqn-body">Q<sub>eng</sub> = &eta;<sub>th</sub>(P<sub>fus</sub> + P<sub>HCD</sub>) / [P<sub>HCD</sub>/&eta;<sub>drv</sub> + f<sub>hk</sub>&eta;<sub>th</sub>(P<sub>fus</sub> + P<sub>HCD</sub>)] = 3.53</div>
           <div class="eqn-num">(1)</div>
         </div>
-        <div class="eqn">
-          <div class="eqn-body">&Theta; = T<sub>i</sub> / T<sub>e</sub> = 3.0</div>
-          <div class="eqn-num">(2)</div>
-        </div>
-
         <p class="muted" style="max-width: var(--measure)">
-          Equation (1) is grounded from first principles rather than fitted, and the scripts
-          producing it agree to every printed digit between MATLAB R2018b and GNU Octave
-          8.4.0. Mercier stability is evaluated with the DESC equilibrium code. Neither
-          result has been validated against experiment.
+          Gross electric over recirculating power, with &eta;<sub>th</sub> 0.31,
+          &eta;<sub>drv</sub> 0.51 and housekeeping f<sub>hk</sub> 0.05. The required confinement is H98 = 1.19, against 1.4 demonstrated in a spherical
+          tokamak. The smallest margin of the point is on H98 (17.5 %); Q<sub>eng</sub> is a
+          close second (18 %). Python and GNU Octave reproduce the parameter file to 0.43 %.
         </p>
       </div>
 
       <div class="card">
         <table class="params">
-          <caption>p–<sup>11</sup>B design point</caption>
+          <caption>S1 · master parameter file v0.5 · 3 Nov 2026</caption>
           <tbody>
-            <tr><th scope="row">Magnetic field</th><td class="val">23 T</td></tr>
-            <tr><th scope="row">Plasma beta</th><td class="val">0.57</td></tr>
-            <tr><th scope="row">Ion density</th><td class="val">8.5&times;10<sup>20</sup> m<sup>&minus;3</sup></td></tr>
-            <tr><th scope="row">Ion temperature</th><td class="val">600 keV</td></tr>
-            <tr><th scope="row">Electron temperature</th><td class="val">202 keV</td></tr>
-            <tr><th scope="row">Temperature ratio &Theta;</th><td class="val">3.0</td></tr>
-            <tr><th scope="row">Confinement time</th><td class="val">5 s</td></tr>
-            <tr><th scope="row">Reactivity enhancement F</th><td class="val">5</td></tr>
-            <tr><th scope="row">Engineering gain</th><td class="val">4.9</td></tr>
-            <tr><th scope="row">First-wall load</th><td class="val">38.8 MW m<sup>&minus;2</sup></td></tr>
+            <tr><th scope="row">Major radius, aspect ratio, elongation</th><td class="val">3.5 m · 2.2 · 3.0</td></tr>
+            <tr><th scope="row">Toroidal field on axis</th><td class="val">3.11 T</td></tr>
+            <tr><th scope="row">Plasma current</th><td class="val">17.3 MA</td></tr>
+            <tr><th scope="row">Normalised beta (assumed)</th><td class="val">5.0</td></tr>
+            <tr><th scope="row">Ion temperature (volume average)</th><td class="val">11.5 keV</td></tr>
+            <tr><th scope="row">Electron density (volume average)</th><td class="val">1.44&times;10<sup>20</sup> m<sup>&minus;3</sup></td></tr>
+            <tr><th scope="row">Greenwald fraction</th><td class="val">0.78</td></tr>
+            <tr><th scope="row">Fusion power</th><td class="val">2.35 GW</td></tr>
+            <tr><th scope="row">Bootstrap fraction</th><td class="val">0.78</td></tr>
+            <tr><th scope="row">Current-drive power</th><td class="val">90 MW</td></tr>
+            <tr><th scope="row">First-wall neutron load</th><td class="val">4.1 MW m<sup>&minus;2</sup></td></tr>
+            <tr><th scope="row">Engineering gain</th><td class="val">3.53</td></tr>
           </tbody>
         </table>
       </div>
@@ -507,68 +512,77 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
     <div class="two-col" style="margin-top: var(--spacing-40)">
       <div>
         <div class="result">
+          <span class="label">Controller</span>
+          <p>Three NCO lock-in channels at 50 kHz. The generated VHDL matches the bit-true
+          MATLAB reference sample for sample (0 mismatches in 3 &times; 50 000 samples, RTL
+          simulation). On a Zynq-7010 (Vivado, placed and routed) it uses 15 DSP blocks and
+          60 % of the LUTs, and meets timing at 5 MHz, one clock per sample. In a closed loop
+          through an emulated 8–16-bit ADC/DAC with up to 50 &micro;s delay, the lock holds
+          within 0.1 % of the linewidth once the delay is calibrated; without calibration the
+          delay shifts the lock by tan(&omega;&tau;) half-linewidths.</p>
+        </div>
+        <div class="result">
+          <span class="label">Feasibility</span>
+          <p>A zero-slip lock to a tearing-stable surface needs
+          s = &sigma;<sub>band</sub>/A &lt; 0.39, where &sigma;<sub>band</sub> is the rms
+          natural-frequency jitter between the loop bandwidth and the linewidth A; the
+          linewidth readout is biased by 1.48 s&sup2;. A sufficient condition for any
+          correlation time is &rho;Q &lt; 0.57 (&rho;: relative jitter, Q: resonance quality).
+          At reactor Lundquist numbers Q reaches 10<sup>3</sup>–5&times;10<sup>4</sup> on S1.</p>
+        </div>
+        <div class="result">
+          <span class="label">Closed: current drive by relaxation events</span>
+          <p>Helicity balance on closed surfaces forbids an edge source from driving core
+          current, axisymmetric or helical, and events above about 100 Hz are filtered by the
+          plasma response. Reconnection events are not a current-drive or heating route on S1.</p>
+        </div>
+        <div class="result">
+          <span class="label">Closed: proton–boron-11 as a reactor fuel</span>
+          <p>With electron temperature from power balance and a sourced first-wall limit of
+          1 MW m<sup>&minus;2</sup>, no variant reaches Q<sub>eng</sub> = 1 even for unlimited
+          confinement: upper bounds 0.19 (spheromak) and 0.41–0.94 (FRC).</p>
+        </div>
+        <div class="result">
           <span class="label">Stability</span>
-          <p>The Mercier interchange limit is controlled by the sign of d&iota;/d&rho;. Where
-          &iota; rises — the relaxed spheromak state — the limit is
-          &beta;<sub>crit</sub> &asymp; 0.035. Where &iota; falls, as in a tokamak or
-          spherical torus, no interchange limit appears at all.</p>
-        </div>
-        <div class="result">
-          <span class="label">Self-consistency</span>
-          <p>A five-closure audit found the published operating point over-pressured at
-          &beta; = 2.77 &mdash; kinetic pressure nearly three times the magnetic. Enforcing
-          pressure balance cut the density roughly fivefold, and solving T<sub>e</sub> from
-          radiative equilibrium rather than assuming it relaxed the decoupling ratio from
-          &Theta; &asymp; 9 to the &Theta; = 3.0 the electron ledger selects for itself.</p>
-        </div>
-        <div class="result">
-          <span class="label">Power balance</span>
-          <p>At the corrected point the reactor ignites: alpha channeling sustains the ion
-          channel while external drive falls to a 107 MW trigger, 2% of the 5.33 GW fusion
-          power. Engineering gain is 4.9, with a first-wall load of 38.8 MW m<sup>&minus;2</sup>
-          against a 40 MW m<sup>&minus;2</sup> flowing-lithium limit &mdash; inside the bound,
-          but not by much.</p>
-        </div>
-        <div class="result">
-          <span class="label">Fuel selection</span>
-          <p>D–<sup>3</sup>He was evaluated and set aside on supply grounds: world
-          <sup>3</sup>He availability runs to roughly 10–20 kg per year against a requirement
-          near 100 kg per year for a single gigawatt plant.</p>
-        </div>
-        <div class="result">
-          <span class="label">Control</span>
-          <p>Nine low-order rational surfaces are addressed simultaneously by a 0.44&ndash;1.04 MHz
-          drive comb from a single antenna, with a phase-interleaved firing order that holds the
-          Chirikov overlap below unity by schedule rather than by amplitude. The 325 ns FPGA
-          pipeline updates roughly once per RF cycle. Validated in closed-loop benchmark and in
-          hardware-in-the-loop on a Zynq XC7Z010 board &mdash; which verifies the controller, not
-          its response to a real plasma.</p>
+          <p>The Mercier interchange limit follows the sign of d&iota;/d&rho;. In the relaxed
+          spheromak state, where &iota; rises, &beta;<sub>crit</sub> &asymp; 0.035; where
+          &iota; falls, as in a tokamak or spherical torus, no interchange limit appears.
+          This, with the fuel result, moved the reference plant to a spherical tokamak.</p>
         </div>
       </div>
 
       <figure class="figure">
-        <svg class="plot" viewBox="0 0 480 320" role="img" aria-label="Required plasma beta for the proton-boron-11 resonance compared with the Mercier interchange limit for a relaxed spheromak">
+        <svg class="plot" viewBox="0 0 480 320" role="img" aria-label="Engineering gain upper bounds of the proton-boron-11 variants compared with the D-T reference point S1">
           <g class="plot-grid">
-            <line x1="90" y1="60"  x2="450" y2="60"/>
-            <line x1="90" y1="130" x2="450" y2="130"/>
-            <line x1="90" y1="200" x2="450" y2="200"/>
+            <line x1="70" y1="69"  x2="460" y2="69"/>
+            <line x1="70" y1="136" x2="460" y2="136"/>
           </g>
-          <rect x="130" y="52" width="90" height="218" fill="var(--series-1)"/>
-          <rect x="300" y="248" width="90" height="22" fill="var(--series-2)"/>
-          <line class="plot-axis" x1="90" y1="270" x2="450" y2="270"/>
-          <line class="plot-axis" x1="90" y1="30"  x2="90"  y2="270"/>
-          <text class="plot-label" x="30" y="64">0.66</text>
-          <text class="plot-label" x="30" y="252">0.035</text>
-          <text class="plot-label" x="30" y="134">&#946;</text>
-          <text class="plot-label" x="126" y="288">required</text>
-          <text class="plot-label" x="296" y="288">permitted</text>
-          <text class="plot-label" x="232" y="160" style="fill: var(--color-aged-sepia)">18.6&#215;</text>
-          <path d="M225,160 L295,160" stroke="var(--color-aged-sepia)" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="95"  y="257" width="60" height="13"  fill="var(--series-2)"/>
+          <rect x="185" y="243" width="60" height="27"  fill="var(--series-2)"/>
+          <rect x="275" y="207" width="60" height="63"  fill="var(--series-2)"/>
+          <rect x="365" y="34"  width="60" height="236" fill="var(--series-1)"/>
+          <path d="M70,203 L460,203" class="plot-curve-ref"/>
+          <line class="plot-axis" x1="70" y1="270" x2="460" y2="270"/>
+          <line class="plot-axis" x1="70" y1="20"  x2="70"  y2="270"/>
+          <text class="plot-label" x="40" y="274">0</text>
+          <text class="plot-label" x="40" y="207">1</text>
+          <text class="plot-label" x="40" y="140">2</text>
+          <text class="plot-label" x="40" y="73">3</text>
+          <text class="plot-label" x="14" y="34">Q_eng</text>
+          <text class="plot-label" x="103" y="251">0.19</text>
+          <text class="plot-label" x="193" y="237">0.41</text>
+          <text class="plot-label" x="283" y="201">0.94</text>
+          <text class="plot-label" x="373" y="28">3.53</text>
+          <text class="plot-label" x="92"  y="288">p-11B sph.</text>
+          <text class="plot-label" x="182" y="288">p-11B FRC</text>
+          <text class="plot-label" x="268" y="288">FRC optim.</text>
+          <text class="plot-label" x="372" y="288">D-T S1</text>
         </svg>
         <figcaption>
-          <b>Fig. 1</b> — Plasma beta required by the p–<sup>11</sup>B resonance condition
-          (left) against the Mercier interchange limit for a relaxed spheromak with rising
-          &iota; (right). Schematic comparison of two computed values, not a parameter scan.
+          <b>Fig. 1</b> — Engineering gain: upper bounds of the proton–boron-11 variants at
+          unlimited confinement and a 1 MW m<sup>&minus;2</sup> wall limit (grey), against the
+          D–T reference point S1 (teal). Dashed: Q<sub>eng</sub> = 1. Values from the master
+          parameter file; model results.
         </figcaption>
       </figure>
     </div>
@@ -578,32 +592,34 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
 <section id="status" class="haze haze-soft">
   <div class="wrap-narrow">
     <span class="label">Where the work stands</span>
-    <h2 class="section-title" style="margin-top: var(--spacing-16)">One structural incompatibility</h2>
+    <h2 class="section-title" style="margin-top: var(--spacing-16)">From a reactor claim to a control result</h2>
     <p style="font-size: var(--text-body-lg); line-height: 1.6; margin-top: var(--spacing-28)">
-      The audited operating point requires &beta; = 0.57, and the audit itself lists
-      &beta; stability at 0.5&ndash;0.6 as an assumed pillar rather than a derived result. For a relaxed spheromak,
-      where the transform profile rises, Mercier analysis puts the interchange limit at
-      &beta;<sub>crit</sub> &asymp; 0.035. That is a factor of roughly 16 &mdash; not a margin to be
-      engineered away, and not a numerical detail. It is a structural conflict between the
-      operating point the power balance demands and the relaxed-state equilibrium.
+      The first published operating point (PPCF 2026) was over-pressured (&beta; = 2.77) and is
+      corrected; the later p–<sup>11</sup>B point at &beta; = 0.57 sits sixteen times above the
+      relaxed-spheromak interchange limit and above every sourced wall limit. Those numbers no
+      longer describe the programme, and the earlier preprints that use them are superseded by
+      the master parameter file.
     </p>
-    <p style="font-size: var(--text-body-lg); line-height: 1.6">
-      Three routes remain open: a non-relaxed transform profile, a substantially higher field,
-      or a device scale near 2 m. None has yet been shown to close the gap. It is stated here
-      because the result is structural, and a concept page that omitted it would be
-      advertising rather than research.
+    <ol class="refs" style="margin-top: var(--spacing-28)">
+      <li><span class="label">Dec 2025 &ndash; Jan 2026</span><span class="ref-title">Stochastic-Adaptive Spheromak Reactor: conceptual design and first preprints on stochastic-adaptive control of reconnection events.</span></li>
+      <li><span class="label">2026</span><span class="ref-title">A proton&ndash;boron-11 spheromak operating point is published (PPCF 68 045016) and later corrected (corrigendum; the over-pressure &beta; = 2.77 removed).</span></li>
+      <li><span class="label">Sep &ndash; Oct 2026</span><span class="ref-title">Closure-hierarchy audits and a master parameter file: no proton&ndash;boron-11 variant reaches Q<sub>eng</sub> = 1 at sourced wall limits; the relaxed-spheromak interchange limit is &beta; &asymp; 0.035.</span></li>
+      <li><span class="label">Nov 2026</span><span class="ref-title">The reference plant moves to a merging-formed D&ndash;T spherical tokamak (S1); current drive by relaxation events is closed; the FPGA resonance tracker is verified through RTL and synthesis; the programme is renamed Stochastic-Adaptive Synchronisation of Rational surfaces.</span></li>
+    </ol>
+    <p style="font-size: var(--text-body-lg); line-height: 1.6; margin-top: var(--spacing-28)">
+      What remains is narrower and checkable: a controller verified from the MATLAB model through RTL
+      simulation and synthesis, a criterion that says when it can lock, and a reference plant that does not depend
+      on either. The next step is a lock on a real plasma signal with an experimental partner.
     </p>
 
     <div class="card-dark" style="margin-top: var(--spacing-40)">
       <h3 class="subhead" style="color: var(--color-parchment)">Scope and limitations</h3>
       <ul style="margin: var(--spacing-16) 0 0; padding-left: 1.2em; line-height: 1.7">
-        <li>Confinement modeling is 0D/1D. No 3D transport simulation has been performed.</li>
-        <li>The scaling of Eq. (1) is derived, not measured. Its normalisation is unverified.</li>
-        <li>All plasma results are simulation-only. No device exists.</li>
-        <li>Hardware-in-the-loop testing validates the control electronics and timing, not the
-            plasma response they would act on.</li>
-        <li>The work is single-author and unfunded; it has not had the benefit of an
-            experimental group's scrutiny.</li>
+        <li>S1 is a 0D/1D reference point with a fixed-boundary equilibrium; no 3D transport or stability simulation has been performed.</li>
+        <li>The feasibility threshold is calibrated on Ornstein–Uhlenbeck jitter; real rotation noise may differ.</li>
+        <li>The controller is verified in simulation, RTL and synthesis; it has not yet acted on a plasma.</li>
+        <li>Lock-in and phase-locked tracking are standard techniques; the contribution is their application to 3D-field coils and the criterion.</li>
+        <li>The work is single-author and unfunded; it has not had the benefit of an experimental group's scrutiny.</li>
       </ul>
     </div>
   </div>
@@ -613,44 +629,28 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
   <div class="wrap-narrow">
     <h2 class="section-title">Publications</h2>
 
-    <span class="label" style="display:block; margin-top: var(--spacing-40)">Peer-reviewed</span>
+    <span class="label" style="display:block; margin-top: var(--spacing-40)">Published and accepted</span>
     <ul class="refs" style="margin-top: var(--spacing-12)">
       <li>
         <span class="ref-title">Non-Equilibrium Ignition of Proton–Boron Plasmas via Stochastic-Adaptive Reconnection Control</span>
         <span class="ref-meta">Plasma Physics and Controlled Fusion &middot; 2026 &middot;
           <a class="doi" href="https://doi.org/10.1088/1361-6587/ae56b5">10.1088/1361-6587/ae56b5</a><br>
-          <span style="color: var(--color-teal-accent)">Corrigendum in preparation.</span>
+          Corrigendum &middot; 2026 &middot; <a class="doi" href="https://doi.org/10.1088/1361-6587/ae9bea">10.1088/1361-6587/ae9bea</a><br>
+          <span style="color: var(--color-teal-accent)">A Comment by Huo et al. and the author's Reply are accepted and in press. The operating point of this paper is superseded.</span>
         </span>
       </li>
-      <li>
-        <span class="ref-title">General Concept of the Magnetic Reconnection Converter (MRC)</span>
-        <span class="ref-meta">International Journal of Energy and Power Engineering &middot; 2024 &middot; 13(6) 108–134 &middot;
-          <a class="doi" href="https://doi.org/10.11648/j.ijepe.20241306.11">10.11648/j.ijepe.20241306.11</a>
-        </span>
-      </li>
-    </ul>
-
-    <span class="label" style="display:block; margin-top: var(--spacing-40)">Under review and in preparation</span>
-    <ul class="refs" style="margin-top: var(--spacing-12)">
       <li>
         <span class="ref-title">Island overlap in low-q spheromaks: linear tearing stability is not sufficient for good confinement</span>
-        <span class="ref-meta">Journal of Plasma Physics &middot; submitted 31 July 2026 &middot; <span class="badge">PLA-2026-0192</span></span>
+        <span class="ref-meta">Journal of Plasma Physics &middot; accepted 2026 &middot; <span class="badge">PLA-2026-0192</span></span>
       </li>
       <li>
-        <span class="ref-title">Anomalous Lifetime of Ball Lightning Explained by Langevin Dynamics in a Metastable Magnetic Potential</span>
-        <span class="ref-meta">IEEE Transactions on Plasma Science &middot; revision under review &middot; <span class="badge">TPS18315.R1</span></span>
-      </li>
-      <li>
-        <span class="ref-title">The relaxed-state transform profile inverts the magnetic well</span>
-        <span class="ref-meta">In preparation &middot; 2026</span>
-      </li>
-      <li>
-        <span class="ref-title">Self-consistent re-audit of the p–<sup>11</sup>B stochastic-adaptive spheromak reactor: closure hierarchy, corrected operating point, and multi-surface network drive</span>
-        <span class="ref-meta">Under review &middot; 2026 &middot; <a class="doi" href="./reaudit-paper.html">paper page</a></span>
+        <span class="ref-title">Forced Entrainment of Rational-Surface Mode Phases in a Spheromak: an XY-Hamiltonian Formulation of Adaptive Phase-Locked Control</span>
+        <span class="ref-meta">Nonlinear Science &middot; accepted 2026 &middot; <span class="badge">NLS_100245</span></span>
       </li>
     </ul>
 
     <span class="label" style="display:block; margin-top: var(--spacing-40)">Preprints</span>
+    <p class="note" style="margin-top: var(--spacing-12)">Preprints dated before November 2026 use operating points that are superseded by the master parameter file (reference point S1 above). Their numbers are not current.</p>
     <ul class="refs" style="margin-top: var(--spacing-12)">
       <li>
         <span class="ref-title">Engineering Architecture of the Stochastic Adaptive Spheromak Reactor (SASR): Operating Conditions for the D–T, D–<sup>3</sup>He, and p–<sup>11</sup>B Fuel Cycles</span>
@@ -702,33 +702,32 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
   <div class="wrap-narrow">
     <h2 class="heading">Code and data</h2>
     <p class="lede" style="margin-top: var(--spacing-16)">
-      Numerical results are reproducible from the deposited scripts. Where two environments
-      were available, results were cross-checked to every printed digit.
+      Numerical results are reproducible from the scripts. Key results are recomputed
+      independently in Python, and MATLAB results are cross-checked in GNU Octave.
     </p>
 
     <ul class="refs" style="margin-top: var(--spacing-28)">
+      <li>
+        <span class="ref-title">FPGA resonance tracker: MATLAB bit-true reference, fixed-point HDL design, VHDL, test vectors and Vivado reports</span>
+        <span class="ref-meta">Available on request &middot; 2026</span>
+      </li>
       <li>
         <span class="ref-title">Self-consistent re-audit of the p–<sup>11</sup>B stochastic-adaptive spheromak reactor (SASR): closure hierarchy, corrected operating point, and multi-surface network drive</span>
         <span class="ref-meta">Zenodo &middot; software &middot; 2026 &middot;
           <a class="doi" href="https://doi.org/10.5281/zenodo.21437772">10.5281/zenodo.21437772</a>
           &middot; earlier version
-          <a class="doi" href="https://doi.org/10.5281/zenodo.21412076">10.5281/zenodo.21412076</a>
+          <a class="doi" href="https://doi.org/10.5281/zenodo.21412076">10.5281/zenodo.21412076</a><br>
+          <span class="note">Audit of the superseded p–<sup>11</sup>B point.</span>
         </span>
       </li>
     </ul>
 
     <p style="margin-top: var(--spacing-28)">
-      <span class="badge">sasr_full_audit.m</span>
-      <span class="badge">sasr_master_audit.m</span>
-      <span class="badge">sasr_qeng_optimizer_v2.m</span>
-      <span class="badge">sasr_pb11_cooling_race.m</span>
-      <span class="badge">sasr_alfven_grounding_v2.m</span>
-      <span class="badge">sasr_alfven_freq_check.m</span>
-      <span class="badge">DESC Mercier scan</span>
       <span class="badge badge-line">MATLAB R2018b</span>
-      <span class="badge badge-line">GNU Octave 8.4.0</span>
-      <span class="badge badge-line">DESC · Python/JAX</span>
-      <span class="badge badge-line">Zynq XC7Z010 HIL</span>
+      <span class="badge badge-line">Fixed-Point Designer · HDL Coder</span>
+      <span class="badge badge-line">GNU Octave 8.4</span>
+      <span class="badge badge-line">GHDL · Vivado 2018.2</span>
+      <span class="badge badge-line">Python</span>
     </p>
   </div>
 </section>
@@ -752,14 +751,15 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-teal-accen
       <div>
         <span class="label">Collaboration</span>
         <p class="muted" style="margin-top: var(--spacing-12)">
-          Interested in experimental collaboration, independent review of the equilibrium and
-          stability calculations, and co-authorship on the open stability problem above.
+          Interested in experiments with 3D-field coils (real-time resonance tracking, mode
+          frequency-noise measurements), independent review of the reference point, and
+          co-authorship on the feasibility criterion.
         </p>
       </div>
     </div>
     <hr class="rule" style="border-color: rgba(250,248,245,0.18)">
     <p class="muted" style="font-size: var(--text-body-sm)">
-      Independent research, conducted without institutional affiliation or external funding.
+      Independent research, conducted without institutional affiliation or external funding. Updated November 2026.
     </p>
   </div>
 </footer>
